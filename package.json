@@ -1,0 +1,31 @@
+{
+  "name": "garbage-day",
+  "version": "0.1.0",
+  "bin": {
+    "garbage-day": "bin/garbage-day.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "20.1.7",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "aws-cdk": "2.85.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.0.4"
+  },
+  "dependencies": {
+    "ask-sdk-core": "^2.14.0",
+    "ask-sdk-model": "^1.76.0",
+    "aws-cdk-lib": "2.85.0",
+    "@aws-cdk/assert": "^2.8.0",
+    "cdk-alexa-skill": "^2.0.4",
+    "constructs": "^10.0.0",
+    "source-map-support": "^0.5.21"
+  }
+}

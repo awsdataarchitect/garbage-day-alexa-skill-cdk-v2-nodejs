@@ -1,0 +1,67 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "weekType",
+              "type": "weekType"
+            },
+            {
+              "name": "weekDate",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "name": "GarbageCollectionDayIntent",
+          "samples": [
+            "garbage collection schedule for week of {weekDate} ",
+            "garbage collection",
+            "garbage day",
+            "Tell me the garbage collection schedule",
+            "When is my next garbage collection day",
+            "garbage collection schedule for {weekType}"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "next week"
+              }
+            },
+            {
+              "name": {
+                "value": "this week"
+              }
+            }
+          ],
+          "name": "weekType"
+        }
+      ],
+      "invocationName": "garbage collection day"
+    }
+  }
+}
