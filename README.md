@@ -18,3 +18,6 @@ The only requirement is the following SSM parameters must be present in the AWS 
 | /garbage-day/lwa-refresh-token         | Secrets Manager Secret | Plaintext / secret-string | LWA Security Profile Refresh Token | 
 
 A sample CLI script for uploading these parameters can be found [here](scripts/upload-credentials.sh). Full descriptions and how-tos for retrieving each value can be found in the blog post solution walkthrough.
+
+###Pricing 
+Please be mindful of the cost of $0.40 per secret per month. For secrets that are stored for less than a month, the price is prorated (based on the number of hours). This is the only cost associated with our CDK stack for provisioning the 2 secrets and you should not incur any additional costs if you stay within the free limits of other resources like CodeCatalyst, Lambda, CloudWatch Logs and the API calls.
