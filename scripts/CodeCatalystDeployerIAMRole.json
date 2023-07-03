@@ -1,0 +1,135 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template IAM_Role_and_Policies: Template to create CodeCatalystDeployerIAMRole service role for CodeCatalyst - CDK deployment.",
+    "Resources": {
+        "CodeCatalystDeployerIAMRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "Statement1",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "codecatalyst.amazonaws.com",
+                                    "codecatalyst-runner.amazonaws.com"
+                                ]
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Path": "/",
+                "RoleName": "CodeCatalystDeployerIAMRole",
+                "Policies": [
+                    {
+                        "PolicyName": "AWSCDKBootstrapAndDeploymentInlinePolicy",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "cloudformation:DescribeStackEvents",
+                                        "cloudformation:DeleteStack",
+                                        "cloudformation:CreateChangeSet",
+                                        "cloudformation:DescribeChangeSet",
+                                        "cloudformation:ExecuteChangeSet",
+                                        "cloudformation:DescribeStacks",
+                                        "cloudformation:GetTemplate",
+                                        "cloudformation:ListStackResources"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:cloudformation:*:*:*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "sts:AssumeRole"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:iam::*:role/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "iam:GetRole",
+                                        "iam:UntagRole",
+                                        "iam:GetPolicy",
+                                        "iam:TagRole",
+                                        "iam:CreateRole",
+                                        "iam:DeleteRole",
+                                        "iam:AttachRolePolicy",
+                                        "iam:PutRolePolicy",
+                                        "iam:TagPolicy",
+                                        "iam:DetachRolePolicy",
+                                        "iam:DeleteRolePolicy",
+                                        "iam:UntagPolicy",
+                                        "iam:UpdateRole",
+                                        "iam:GetRolePolicy"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:iam::*:policy/*",
+                                        "arn:aws:iam::*:role/cdk-*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "s3:PutEncryptionConfiguration",
+                                        "s3:PutBucketPublicAccessBlock",
+                                        "s3:PutBucketPolicy",
+                                        "s3:CreateBucket",
+                                        "s3:DeleteBucketPolicy",
+                                        "s3:DeleteBucket",
+                                        "s3:GetBucketPolicy",
+                                        "s3:PutBucketVersioning"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:s3:::cdk-*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ssm:PutParameter",
+                                        "ssm:DeleteParameter",
+                                        "ssm:GetParameters",
+                                        "ssm:GetParameter"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:ssm:*:*:parameter/cdk-bootstrap/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ecr:DeleteRepository",
+                                        "ecr:DescribeRepositories",
+                                        "ecr:SetRepositoryPolicy"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:ecr:*:*:repository/cdk-*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ecr:CreateRepository"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "*"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
