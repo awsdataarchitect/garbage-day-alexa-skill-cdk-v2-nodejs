@@ -1,0 +1,45 @@
+Name: deploymentPipeline
+SchemaVersion: "1.0"
+Triggers:
+  - Type: PUSH
+    Branches:
+      - main
+Actions:
+  CDKBootstrapAction:
+    Identifier: aws/cdk-bootstrap@v1
+    Timeout: 10
+    Configuration:
+      Region: us-east-1
+    Environment:
+      Name: default_environment
+      Connections:
+        - Name: "012345678901" #####Replace with your AWS Account #
+          Role: CodeCatalystDeployerIAMRole
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Outputs:
+      Artifacts:
+        - Name: CDKBootstrapOutput
+          Files:
+            - cdk.out/*
+  CDKDeploy:
+    Identifier: aws/cdk-deploy@v1
+    DependsOn:
+      - CDKBootstrapAction
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Timeout: 14
+    Configuration:
+      StackName: GarbageDayStack
+      Region: us-east-1
+      Context: '{"stack_name": "GarbageDayStack"}'
+    Environment:
+      Name: default_environment
+      Connections:
+        - Name: "012345678901" #####Replace with your AWS Account #
+          Role: CodeCatalystDeployerIAMRole
+Compute:
+  Type: EC2
+  Fleet: Linux.x86-64.Large
